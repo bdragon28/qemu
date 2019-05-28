@@ -27,6 +27,7 @@
 #include "hw/gpio/aspeed_gpio.h"
 #include "hw/misc/aspeed_pwm.h"
 #include "hw/misc/aspeed_lpc.h"
+#include "hw/misc/aspeed_fsi.h"
 
 #define ASPEED_SPIS_NUM  2
 #define ASPEED_WDTS_NUM  3
@@ -56,6 +57,7 @@ typedef struct AspeedSoCState {
     AspeedGPIOState gpio;
     AspeedPWMState pwm;
     AspeedLPCState lpc;
+    AspeedFsiState fsi[2];
 } AspeedSoCState;
 
 #define TYPE_ASPEED_SOC "aspeed-soc"
@@ -121,6 +123,8 @@ enum {
     ASPEED_ETH4,
     ASPEED_MII,
     ASPEED_SDRAM,
+    ASPEED_FSI1,
+    ASPEED_FSI2,
 };
 
 #endif /* ASPEED_SOC_H */
