@@ -240,6 +240,9 @@ static void aspeed_soc_init(Object *obj)
         sysbus_init_child_obj(obj, "ftgmac100[*]", OBJECT(&s->ftgmac100[i]),
                               sizeof(s->ftgmac100[i]), TYPE_FTGMAC100);
     }
+
+    sysbus_init_child_obj(obj, "ibt", OBJECT(&s->ibt), sizeof(s->ibt),
+                          TYPE_ASPEED_IBT);
 }
 
 static void aspeed_soc_realize(DeviceState *dev, Error **errp)
@@ -426,6 +429,16 @@ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
         sysbus_connect_irq(SYS_BUS_DEVICE(&s->ftgmac100[i]), 0,
                            aspeed_soc_get_irq(s, ASPEED_ETH1 + i));
     }
+
+    /* iBT */
+    object_property_set_bool(OBJECT(&s->ibt), true, "realized", &err);
+    if (err) {
+        error_propagate(errp, err);
+        return;
+    }
+    sysbus_mmio_map(SYS_BUS_DEVICE(&s->ibt), 0, sc->info->memmap[ASPEED_IBT]);
+    sysbus_connect_irq(SYS_BUS_DEVICE(&s->ibt), 0,
+                       aspeed_soc_get_irq(s, ASPEED_LPC));
 }
 
 static void aspeed_soc_class_init(ObjectClass *oc, void *data)
