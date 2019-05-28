@@ -385,6 +385,17 @@ static const AspeedBoardConfig aspeed_boards[] = {
         .i2c_init  = romulus_bmc_i2c_init,
         .ram       = 512 * MiB,
         .num_cpus  = 1,
+     }, {
+        .name      = MACHINE_TYPE_NAME("witherspoon128-bmc"),
+        .desc      = "OpenPOWER Witherspoon128 BMC (ARM1176)",
+        .soc_name  = "ast2500-a1",
+        .hw_strap1 = WITHERSPOON_BMC_HW_STRAP1,
+        .fmc_model = "mt25ql01g",
+        .spi_model = "mx66l1g45g",
+        .num_cs    = 2,
+        .i2c_init  = witherspoon_bmc_i2c_init,
+        .ram       = 512 * MiB,
+        .num_cpus  = 1,
     }, {
         .name      = MACHINE_TYPE_NAME("witherspoon-bmc"),
         .desc      = "OpenPOWER Witherspoon BMC (ARM1176)",
